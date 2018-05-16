@@ -1,4 +1,12 @@
 # Starter code for CS 165B HW3
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+
+BUDGET = 0
+GENRE = 1
+FAMOUS_ACTORS = 2
+DIRECTOR = 3
+GOOD_MOVIE = 4
 
 def run_train_test(training_file, testing_file):
     """
@@ -32,10 +40,39 @@ def run_train_test(training_file, testing_file):
     				}
     """
 
+    training = parse_file(training_file)
+    training = np.array(training)
+    print training
 
-    # TODO: IMPLEMENT HERE
+    X_train = training[:,:4]
+    Y_train = training[:,4]
 
+    gini = DecisionTreeClassifier(random_state=0)
+    gini.fit(X_train, Y_train)
+
+    # return {
+    #     "gini":{
+    #         'True positives':0, 
+    #         'True negatives':0, 
+    #         'False positives':0, 
+    #         'False negatives':0, 
+    #         'Error rate':0.00
+    #         },
+    #     "entropy":{
+    #         'True positives':0, 
+    #         'True negatives':0, 
+    #         'False positives':0, 
+    #         'False negatives':0, 
+    #         'Error rate':0.00
+    #         }
+    # }
     pass
+
+
+def parse_file(file):
+    next(file)
+    data = [[int(y) for y in x.strip().split()[1:]] for x in file]
+    return data
 
 
 #######
